@@ -1,0 +1,131 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA; /* Instagram's light gray background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 350px;
+    width: 90%;
+    background-color: #FFFFFF;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+    width: 175px;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+    /* Ensure the logo loads correctly */
+}
+
+main {
+    text-align: center;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #262626;
+    margin-bottom: 10px;
+}
+
+.disclaimer {
+    background-color: #FFF1F0;
+    padding: 10px;
+    border-radius: 4px;
+    color: #C13515;
+    font-size: 12px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.disclaimer a {
+    color: #0095F6;
+    text-decoration: none;
+}
+
+p {
+    font-size: 14px;
+    color: #8E8E8E; /* Instagram's gray text */
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #DBDBDB;
+    border-radius: 4px;
+    background-color: #FAFAFA;
+    font-size: 14px;
+    color: #262626;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #B2DFFC;
+    box-shadow: 0 0 0 2px rgba(0, 149, 246, 0.2);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+small {
+    font-size: 12px;
+    color: #8E8E8E;
+    display: block;
+    margin-top: 5px;
+}
+
+small strong {
+    color: #D8000C;
+}
+
+button {
+    width: 100%;
+    padding: 8px;
+    background: linear-gradient(45deg, #E1306C, #FFDC80); /* Instagram gradient */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#form-message {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #0095F6;
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        border: none;
+        box-shadow: none;
+    }
+}
