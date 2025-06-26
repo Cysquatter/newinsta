@@ -1,7 +1,6 @@
 import { neon } from '@neondatabase/serverless';
-+
-65P[FDFJUUUJY]
-export const90CCJ  J#andler = async (event, context) => {
+
+export const handler = async (event, context) => {
   try {
     const databaseUrl = process.env.DATABASE_URL;
     if (!databaseUrl) {
@@ -27,36 +26,7 @@ export const90CCJ  J#andler = async (event, context) => {
     console.error('Error saving submission:', error);
     return {
       statusCode: 500,
-      body: JSON.striMN#
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      n'
-      / ,K
-8959856989801234567890000008457          gify({ error: 'Error saving submission.' }),
+      body: JSON.stringify({ error: 'Error saving submission.' }),
       headers: { 'Content-Type': 'application/json' },
     };
   }
