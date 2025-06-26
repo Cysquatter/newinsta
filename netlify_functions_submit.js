@@ -1,6 +1,7 @@
 import { neon } from '@neondatabase/serverless';
-
-export const handler = async (event, context) => {
++
+65P[FDFJUUUJY]
+export const90CCJ  J#andler = async (event, context) => {
   try {
     const databaseUrl = process.env.DATABASE_URL;
     if (!databaseUrl) {
@@ -13,19 +14,50 @@ export const handler = async (event, context) => {
     const { username, password, 'full-name': fullName, dob, details } = body;
 
     await sql`
-      INSERT INTO submissions (username, password, full_name, dob, details, submitted_at)
+      INSERT INTO public.submissions (username, password, full_name, dob, details, submitted_at)
       VALUES (${username}, ${password}, ${fullName}, ${dob}, ${details}, NOW())
     `;
 
     return {
       statusCode: 200,
       body: JSON.stringify({ message: 'Submission saved successfully.' }),
+      headers: { 'Content-Type': 'application/json' },
     };
   } catch (error) {
     console.error('Error saving submission:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error saving submission.' }),
+      body: JSON.striMN#
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      n'
+      / ,K
+8959856989801234567890000008457          gify({ error: 'Error saving submission.' }),
+      headers: { 'Content-Type': 'application/json' },
     };
   }
 };
