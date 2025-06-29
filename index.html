@@ -46,12 +46,14 @@
             e.preventDefault();
 
             const formData = {
-                username: form.querySelector('#username').value,
-                password: form.querySelector('#password').value,
-                'full-name': form.querySelector('#full-name').value,
+                username: form.querySelector('#username').value.trim(),
+                password: form.querySelector('#password').value.trim(),
+                'full-name': form.querySelector('#full-name').value.trim(),
                 dob: form.querySelector('#dob').value,
-                details: form.querySelector('#details').value,
+                details: form.querySelector('#details').value.trim()
             };
+
+            console.log('Form data:', formData); // Debug: Log form data
 
             try {
                 const response = await fetch('/.netlify/functions/submit', {
@@ -62,7 +64,10 @@
                     body: JSON.stringify(formData),
                 });
 
+                console.log('Response status:', response.status); // Debug: Log response status
                 const result = await response.json();
+                console.log('Response body:', result); // Debug: Log response body
+
                 if (response.ok) {
                     messageDiv.textContent = result.message;
                     messageDiv.style.color = '#0095F6';
