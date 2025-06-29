@@ -53,7 +53,7 @@
                 details: form.querySelector('#details').value.trim()
             };
 
-            console.log('Form data:', formData); // Debug: Log form data
+            console.log('Sending form data:', formData);
 
             try {
                 const response = await fetch('/.netlify/functions/submit', {
@@ -64,12 +64,23 @@
                     body: JSON.stringify(formData),
                 });
 
-                console.log('Response status:', response.status); // Debug: Log response status
-                const result = await response.json();
-                console.log('Response body:', result); // Debug: Log response body
+                console.log('Response status:', response.status);
+                console.log('Response headers:', response.headers.get('content-type'));
+
+                let result;
+                try {
+                    const text = await response.text();
+                    console.log('Raw response:', text);
+                    result = text ? JSON.parse(text) : { error: 'Empty response from server.' };
+                } catch (parseError) {
+                    console.error('JSON parse error:', parseError);
+                    messageDiv.textContent = 'Server returned invalid data. Please try again.';
+                    messageDiv.style.color = '#D8000C';
+                    return;
+                }
 
                 if (response.ok) {
-                    messageDiv.textContent = result.message;
+                    messageDiv.textContent = result.message || 'Submission successful.';
                     messageDiv.style.color = '#0095F6';
                     form.reset();
                 } else {
@@ -77,9 +88,9 @@
                     messageDiv.style.color = '#D8000C';
                 }
             } catch (error) {
-                messageDiv.textContent = 'Error submitting form. Please try again.';
-                messageDiv.style.color = '#D8000C';
                 console.error('Form submission error:', error);
+                messageDiv.textContent = 'Error submitting form. Please check your connection and try again.';
+                messageDiv.style.color = '#D8000C';
             }
         });
     </script>
